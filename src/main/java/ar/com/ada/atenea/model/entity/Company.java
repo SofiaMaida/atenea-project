@@ -37,11 +37,11 @@ public class Company {
     @Column(nullable = false, length = 100)
     private String typeCategory;
 
-    @OneToMany(mappedBy = "company")
+    /*@OneToMany(mappedBy = "company")
     private List<Representative> representatives;
 
     @ManyToMany(mappedBy = "companies")
-    private List<Course> courses;
+    private List<Course> courses;*/
 
     public Company(String name, Integer cuil, String typeCompany, String address, Integer year, Integer phone) {
         this.name = name;
