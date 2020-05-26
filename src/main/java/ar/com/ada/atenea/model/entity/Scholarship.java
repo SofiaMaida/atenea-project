@@ -27,17 +27,16 @@ public class Scholarship {
 
     private Boolean haveDependentFamily;
 
-    @ManyToOne
+   /* @ManyToOne
     @JoinColumn(name = "participants_id", nullable = true)
-    private Participants participants;
+    private Participants participants;*/
 
-    public Scholarship(Boolean isStudy, Boolean isWorking, Boolean haveIncome, Integer howMuch, Boolean haveDependentFamily, Participants participants) {
+    public Scholarship(Boolean isStudy, Boolean isWorking, Boolean haveIncome, Integer howMuch, Boolean haveDependentFamily) {
         this.isStudy = isStudy;
         this.isWorking = isWorking;
         this.haveIncome = haveIncome;
         this.howMuch = howMuch;
         this.haveDependentFamily = haveDependentFamily;
-        this.participants = participants;
     }
 
     public Scholarship(Long id) {

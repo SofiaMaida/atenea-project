@@ -27,7 +27,7 @@ public class CompanyDTO implements Serializable {
     private Integer cuil;
 
     @NotBlank(message = "type company is required")
-    private String type_company;
+    private String typeCompany;
 
     @NotBlank(message = "address is required")
     private String address;
@@ -42,6 +42,6 @@ public class CompanyDTO implements Serializable {
     private Integer phone;
 
     @NotBlank(message = "type category is required")
-    private String type_category;
+    private String typeCategory;
 
 }

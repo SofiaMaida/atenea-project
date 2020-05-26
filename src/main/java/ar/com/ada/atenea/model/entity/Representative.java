@@ -33,13 +33,13 @@ public class Representative {
     @Column(nullable = false, length = 100)
     private String password;
 
-    @ManyToOne
+    /*@ManyToOne
     @JoinColumn(name = "documentType_id", nullable = true)
     private DocumentType docType;
 
     @ManyToOne
     @JoinColumn(name = "company_id", nullable = true)
-    private Company company;
+    private Company company;*/
 
     public Representative(Long id) {
         this.id = id;
