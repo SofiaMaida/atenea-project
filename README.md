@@ -1,4 +1,5 @@
 # Atenea-project
+Atenea, diosa de la sabiduría y del conocimiento, así como de la estrategia.
 Project final
 
 
