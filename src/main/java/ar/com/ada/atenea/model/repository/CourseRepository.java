@@ -6,4 +6,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository("courseRepository")
 public interface CourseRepository extends JpaRepository<Course, Long> {
+
+    // Optional<Course> findByNameOrGender(String name, String gender);
+    // SELECT * FROM Course WHERE name = ? AND gender = ?
+    // SELECT * FROM Course WHERE name = ? OR gender = ?
+
 }

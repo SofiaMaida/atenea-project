@@ -6,4 +6,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository("companyRepository")
 public interface CompanyRepository extends JpaRepository<Company, Long> {
+
+    // Optional<Company> findByNameOrCategory(String name, String gender);
+    // SELECT * FROM Company WHERE name = ? AND category = ?
+    // SELECT * FROM Company WHERE name = ? OR category = ?
+
+
 }
