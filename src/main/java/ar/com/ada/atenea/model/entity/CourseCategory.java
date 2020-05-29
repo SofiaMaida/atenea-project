@@ -18,16 +18,13 @@ public class CourseCategory {
     @Column(nullable = false, length = 100)
     private String typeCategory;
 
-    @ManyToOne
+    /*@ManyToOne
     @JoinColumn(name = "course_id", nullable = true)
-    private Course course;
+    private Course course;*/
 
     public CourseCategory(Long id) {
         this.id = id;
     }
 
-    public CourseCategory(String typeCategory, Course course) {
-        this.typeCategory = typeCategory;
-        this.course = course;
-    }
+
 }

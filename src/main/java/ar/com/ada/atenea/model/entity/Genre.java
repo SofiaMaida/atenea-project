@@ -18,15 +18,12 @@ public class Genre {
     @Column(nullable = false, length = 50)
     private String typeGenre;
 
-    @OneToMany(mappedBy = "genre")
-    private List<Participants> participants;
+    /*@OneToMany(mappedBy = "genre")
+    private List<Participants> participants;*/
 
     public Genre(Long id) {
         this.id = id;
     }
 
-    public Genre(String typeGenre, List<Participants> participants) {
-        this.typeGenre = typeGenre;
-        this.participants = participants;
-    }
+
 }

@@ -18,14 +18,14 @@ public class DocumentType {
     @Column(nullable = false, length = 100)
     private String docType;
 
-    @OneToMany(mappedBy = "documentType")
+    /*@OneToMany(mappedBy = "documentType")
     private List<Representative> representatives;
 
     @OneToMany(mappedBy = "documentType")
     private List<Participants> participants;
 
     @OneToMany(mappedBy = "documentType")
-    private List<Administrator> administrators;
+    private List<Administrator> administrators;*/
 
     public DocumentType(String docType) {
         this.docType = docType;

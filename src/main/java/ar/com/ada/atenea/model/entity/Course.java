@@ -41,7 +41,13 @@ public class Course {
     @Column(nullable = false, length = 100)
     private Integer amountScholarship;
 
-    @ManyToMany
+    @Column(nullable = true)
+    private Integer scholarshipCounter;
+
+    @Column(nullable = true)
+    private Integer participantsCounter;
+
+    /*@ManyToMany
     @JoinTable(name = "Course_has_Company",
             joinColumns = @JoinColumn(name = "Course_id"),
             inverseJoinColumns = @JoinColumn(name = "Company_id"))
@@ -54,10 +60,7 @@ public class Course {
     private Set<Participants> participants;
 
     @OneToMany(mappedBy = "course")
-    private List<CourseCategory> courseCategories;
-
-    @OneToMany(mappedBy = "course")
-    private List<Waiting> waitings;
+    private List<CourseCategory> courseCategories;*/
 
     public Course(Long id) {
         this.id = id;

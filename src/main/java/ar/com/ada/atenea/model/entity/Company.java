@@ -29,7 +29,7 @@ public class Company {
     private String address;
 
     @Column(nullable = false, length = 100)
-    private Integer year;
+    private Integer yearFoundation;
 
     @Column(nullable = false, length = 100)
     private Integer phone;
@@ -42,15 +42,6 @@ public class Company {
 
     @ManyToMany(mappedBy = "companies")
     private List<Course> courses;*/
-
-    public Company(String name, Integer cuil, String typeCompany, String address, Integer year, Integer phone) {
-        this.name = name;
-        this.cuil = cuil;
-        this.typeCompany = typeCompany;
-        this.address = address;
-        this.year = year;
-        this.phone = phone;
-    }
 
     public Company(Long id) {
         this.id = id;

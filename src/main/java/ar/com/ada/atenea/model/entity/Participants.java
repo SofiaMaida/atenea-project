@@ -29,16 +29,14 @@ public class Participants {
     @Column(nullable = false, length = 100)
     private String location;
 
-    @Column(nullable = false)
-    private Boolean paymentMethod;
-
     @Column(nullable = false, length = 12)
     private Integer numberDoc;
 
     @Column(nullable = false, length = 100)
     private String password;
 
-    @ManyToOne
+
+    /*@ManyToOne
     @JoinColumn(name = "documentType_id", nullable = true)
     private DocumentType docType;
 
@@ -46,23 +44,14 @@ public class Participants {
     @JoinColumn(name = "genre_id", nullable = true)
     private Genre genre;
 
-    @OneToMany(mappedBy = "participants")
+    @OneToOne(mappedBy = "participants")
     private List<Scholarship> scholarships;
 
     @ManyToMany(mappedBy = "participants")
-    private List<Course> courses;
+    private List<Course> courses;*/
 
     public Participants(Long id) {
         this.id = id;
     }
 
-    public Participants(String name, String lastName, Date birthday, String location, String password, Integer numberDoc, Genre genre) {
-        this.name = name;
-        this.lastName = lastName;
-        this.birthday = birthday;
-        this.location = location;
-        this.password = password;
-        this.numberDoc = numberDoc;
-        this.genre = genre;
-    }
 }

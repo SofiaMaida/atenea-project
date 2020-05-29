@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @Entity
 @Table(name = "Scholarship")
-public class Scholarship {
+public class Socioeconomic {
 
     private Long id;
 
@@ -31,7 +31,7 @@ public class Scholarship {
     @JoinColumn(name = "participants_id", nullable = true)
     private Participants participants;*/
 
-    public Scholarship(Boolean isStudy, Boolean isWorking, Boolean haveIncome, Integer howMuch, Boolean haveDependentFamily) {
+    public Socioeconomic(Boolean isStudy, Boolean isWorking, Boolean haveIncome, Integer howMuch, Boolean haveDependentFamily) {
         this.isStudy = isStudy;
         this.isWorking = isWorking;
         this.haveIncome = haveIncome;
@@ -39,7 +39,7 @@ public class Scholarship {
         this.haveDependentFamily = haveDependentFamily;
     }
 
-    public Scholarship(Long id) {
+    public Socioeconomic(Long id) {
         this.id = id;
     }
 }
