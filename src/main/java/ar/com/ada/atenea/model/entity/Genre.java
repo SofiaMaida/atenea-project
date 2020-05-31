@@ -18,6 +18,7 @@ public class Genre {
     @Column(nullable = false, length = 50)
     private String typeGenre;
 
+
     /*@OneToMany(mappedBy = "genre")
     private List<Participants> participants;*/
 

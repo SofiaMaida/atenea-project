@@ -18,6 +18,7 @@ public class DocumentType {
     @Column(nullable = false, length = 100)
     private String docType;
 
+
     /*@OneToMany(mappedBy = "documentType")
     private List<Representative> representatives;
 

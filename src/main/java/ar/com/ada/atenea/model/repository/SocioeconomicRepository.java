@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository("socioeconomicRepository")
 public interface SocioeconomicRepository extends JpaRepository<Socioeconomic, Long> {
+
 }
+

@@ -35,6 +35,7 @@ public class Administrator {
     private DocumentType documentType;*/
 
     public Administrator(Long id) {
+
         this.id = id;
     }
 

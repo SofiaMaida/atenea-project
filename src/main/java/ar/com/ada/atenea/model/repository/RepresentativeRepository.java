@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository("representativeRepository")
 public interface RepresentativeRepository extends JpaRepository<Representative, Long> {
+
 }

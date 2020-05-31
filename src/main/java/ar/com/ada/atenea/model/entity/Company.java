@@ -19,7 +19,7 @@ public class Company {
     @Column(nullable = false, length = 100)
     private String name;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 50)
     private Integer cuil;
 
     @Column(nullable = false, length = 100)
@@ -31,7 +31,7 @@ public class Company {
     @Column(nullable = false, length = 100)
     private Integer yearFoundation;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 50)
     private Integer phone;
 
     @Column(nullable = false, length = 100)

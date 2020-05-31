@@ -4,10 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Getter @Setter
 @NoArgsConstructor
@@ -15,16 +12,23 @@ import javax.persistence.Table;
 @Table(name = "Scholarship")
 public class Socioeconomic {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private Boolean isStudy;
 
+    @Column(nullable = false)
     private Boolean isWorking;
 
+    @Column(nullable = false)
     private Boolean haveIncome;
 
+    @Column(nullable = false)
     private Integer howMuch;
 
+    @Column(nullable = false)
     private Boolean haveDependentFamily;
 
    /* @ManyToOne

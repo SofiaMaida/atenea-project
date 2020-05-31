@@ -47,6 +47,7 @@ public class Course {
     @Column(nullable = true)
     private Integer participantsCounter;
 
+
     /*@ManyToMany
     @JoinTable(name = "Course_has_Company",
             joinColumns = @JoinColumn(name = "Course_id"),

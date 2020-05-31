@@ -35,7 +35,6 @@ public class Participants {
     @Column(nullable = false, length = 100)
     private String password;
 
-
     /*@ManyToOne
     @JoinColumn(name = "documentType_id", nullable = true)
     private DocumentType docType;
