@@ -5,22 +5,21 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter @Setter
 @NoArgsConstructor
-@Entity
-@Table(name = "Waiting")
-public class Waiting {
+@Entity(name = "Gender")
+public class Gender {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private Integer waitingList;
+    @Column(nullable = false, length = 50)
+    private String typeGender;
 
-    @ManyToMany
-    @JoinColumn(name = "course_id", nullable = true)
-    private Course course;
+    @OneToMany(mappedBy = "gender")
+    private List<Participant> participants;
 
 
 }
