@@ -7,11 +7,12 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Getter @Setter
 @NoArgsConstructor
-@Entity(name = "Participants")
-public class Participants {
+@Entity(name = "Participant")
+public class Participant {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,22 +36,18 @@ public class Participants {
     @Column(nullable = false, length = 100)
     private String password;
 
-    /*@ManyToOne
-    @JoinColumn(name = "documentType_id", nullable = true)
-    private DocumentType docType;
+    @ManyToOne
+    @JoinColumn(name = "DocumentType_id", referencedColumnName = "id", nullable = false)
+    private DocumentType documentType;
 
     @ManyToOne
-    @JoinColumn(name = "genre_id", nullable = true)
-    private Genre genre;
+    @JoinColumn(name = "Gender_id", referencedColumnName = "id", nullable = false)
+    private Gender gender;
 
-    @OneToOne(mappedBy = "participants")
-    private List<Scholarship> scholarships;
+    @OneToOne(mappedBy = "participant")
+    private SocioEconomic socioEconomics;
 
-    @ManyToMany(mappedBy = "participants")
-    private List<Course> courses;*/
-
-    public Participants(Long id) {
-        this.id = id;
-    }
+    @OneToMany(mappedBy = "participant")
+    private Set<CourseHasParticipant> participant;
 
 }

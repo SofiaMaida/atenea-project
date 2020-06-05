@@ -16,23 +16,16 @@ public class DocumentType {
     private Long id;
 
     @Column(nullable = false, length = 100)
-    private String docType;
+    private String documentType;
 
-
-    /*@OneToMany(mappedBy = "documentType")
+    @OneToMany(mappedBy = "documentType")
     private List<Representative> representatives;
 
     @OneToMany(mappedBy = "documentType")
-    private List<Participants> participants;
+    private List<Participant> participants;
 
     @OneToMany(mappedBy = "documentType")
-    private List<Administrator> administrators;*/
+    private List<Administrator> administrators;
 
-    public DocumentType(String docType) {
-        this.docType = docType;
-    }
 
-    public DocumentType(Long id) {
-        this.id = id;
-    }
 }

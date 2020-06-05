@@ -9,22 +9,17 @@ import java.util.List;
 
 @Getter @Setter
 @NoArgsConstructor
-@Entity(name = "Genre")
-public class Genre {
+@Entity(name = "Gender")
+public class Gender {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, length = 50)
-    private String typeGenre;
+    private String typeGender;
 
-
-    /*@OneToMany(mappedBy = "genre")
-    private List<Participants> participants;*/
-
-    public Genre(Long id) {
-        this.id = id;
-    }
+    @OneToMany(mappedBy = "gender")
+    private List<Participant> participants;
 
 
 }

@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Getter @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "Administration")
+@Table(name = "Administrator")
 public class Administrator {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,14 +30,8 @@ public class Administrator {
     @Column(nullable = false, length = 100)
     private String email;
 
-    /*@ManyToOne
-    @JoinColumn(name = "documentType_id", nullable = true)
-    private DocumentType documentType;*/
-
-    public Administrator(Long id) {
-
-        this.id = id;
-    }
-
+    @ManyToOne
+    @JoinColumn(name = "DocumentType_id", referencedColumnName = "id", nullable = false)
+    private DocumentType documentType;
 
 }

@@ -37,20 +37,10 @@ public class Company {
     @Column(nullable = false, length = 100)
     private String typeCategory;
 
-    /*@OneToMany(mappedBy = "company")
+    @OneToMany(mappedBy = "company")
+    private List<Course> courses;
+
+    @OneToMany(mappedBy = "company")
     private List<Representative> representatives;
-
-    @ManyToMany(mappedBy = "companies")
-    private List<Course> courses;*/
-
-    public Company(Long id) {
-        this.id = id;
-    }
-
-    //public void addCompany(Company company) {
-      //  this.companys.add(company);}
-
-
-
 
 }

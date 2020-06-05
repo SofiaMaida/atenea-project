@@ -34,24 +34,12 @@ public class Representative {
     @Column(nullable = false, length = 100)
     private String password;
 
-    /*@ManyToOne
-    @JoinColumn(name = "documentType_id", nullable = true)
-    private DocumentType docType;
+    @ManyToOne
+    @JoinColumn(name = "DocumentType_id", referencedColumnName = "id", nullable = false)
+    private DocumentType documentType;
 
     @ManyToOne
-    @JoinColumn(name = "company_id", nullable = true)
-    private Company company;*/
+    @JoinColumn(name = "Company_id", referencedColumnName = "id", nullable = false)
+    private Company company;
 
-    public Representative(Long id) {
-        this.id = id;
-    }
-
-    public Representative(String name, String lastName, Integer numberDoc, String positionCompany, String email, String password) {
-        this.name = name;
-        this.lastName = lastName;
-        this.numberDoc = numberDoc;
-        this.positionCompany = positionCompany;
-        this.email = email;
-        this.password = password;
-    }
 }
