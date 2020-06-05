@@ -5,14 +5,17 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Getter @Setter
 @NoArgsConstructor
-@Entity(name = "Representative")
-public class Representative {
+@Entity(name = "Participant")
+public class Participant {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, length = 100)
@@ -21,15 +24,14 @@ public class Representative {
     @Column(nullable = false, length = 100)
     private String lastName;
 
-    @Column(nullable = false, length = 11)
+    @Column(nullable = false, columnDefinition = "DATETIME")
+    private Date birthday;
+
+    @Column(nullable = false, length = 100)
+    private String location;
+
+    @Column(nullable = false, length = 12)
     private Integer numberDoc;
-
-    @Column(nullable = false, length = 100)
-    private String positionCompany;
-
-    @Column(nullable = false, length = 100)
-    private String email;
-
 
     @Column(nullable = false, length = 100)
     private String password;
@@ -39,7 +41,13 @@ public class Representative {
     private DocumentType documentType;
 
     @ManyToOne
-    @JoinColumn(name = "Company_id", referencedColumnName = "id", nullable = false)
-    private Company company;
+    @JoinColumn(name = "Gender_id", referencedColumnName = "id", nullable = false)
+    private Gender gender;
+
+    @OneToOne(mappedBy = "participant")
+    private SocioEconomic socioEconomics;
+
+    @OneToMany(mappedBy = "participant")
+    private Set<CourseHasParticipant> participant;
 
 }

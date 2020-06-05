@@ -15,19 +15,14 @@ public class CourseCategory {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     @Column(nullable = false, length = 100)
     private String typeCategory;
 
     @ManyToOne
-    @JoinColumn(name = "course_id", nullable = true)
+    @JoinColumn(name = "Course_id", nullable = false, referencedColumnName = "id")
     private Course course;
 
-    public CourseCategory(Long id) {
-        this.id = id;
-    }
 
-    public CourseCategory(String typeCategory, Course course) {
-        this.typeCategory = typeCategory;
-        this.course = course;
-    }
+
 }

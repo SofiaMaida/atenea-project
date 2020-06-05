@@ -7,18 +7,18 @@ import java.util.List;
 
 @Service("companyServices")
 public class CompanyServices implements Services<CompanyDTO>{
-    @Override
-    public List<CompanyDTO> findAll() {
-        return null;
-    }
+    //@Override
+    //public List<CompanyDTO> findAll() {
+    //    return null;
+    //}
 
-    @Override
-    public CompanyDTO save(CompanyDTO dto) {
-        return null;
-    }
+    // @Override
+    // public CompanyDTO save(CompanyDTO dto) {
+    //     return null;
+    // }
 
-    @Override
-    public void delete(Long id) {
+    //@Override
+    //public void delete(Long id) {
 
-    }
+    //}
 }

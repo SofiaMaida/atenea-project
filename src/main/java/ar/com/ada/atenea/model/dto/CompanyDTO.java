@@ -1,6 +1,7 @@
 package ar.com.ada.atenea.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
+import java.util.Set;
 
 @Getter @Setter
 @NoArgsConstructor
@@ -35,7 +37,7 @@ public class CompanyDTO implements Serializable {
     @NotNull(message = "foundation year is required")
     @PastOrPresent(message = "foundation year must be past or present")
     @JsonFormat(pattern = "yyyy")
-    private Integer year;
+    private Integer yearFoundation;
 
     @NotBlank(message = "phone is required")
     @Pattern(regexp = "[0-9]")
@@ -43,5 +45,8 @@ public class CompanyDTO implements Serializable {
 
     @NotBlank(message = "type category is required")
     private String typeCategory;
+
+    @JsonIgnoreProperties(value = "companies")
+    private Set<RepresentativeDTO> representatives;
 
 }

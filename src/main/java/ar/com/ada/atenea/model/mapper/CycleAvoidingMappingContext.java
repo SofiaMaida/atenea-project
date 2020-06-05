@@ -12,20 +12,20 @@ import java.util.Map;
 public class CycleAvoidingMappingContext {
 
     //Se guardan todas las conversiones de los objetos que va a ser el mapper
-    private Map<Object, Object> knowInstances = new IdentityHashMap<>();
+    // private Map<Object, Object> knowInstances = new IdentityHashMap<>();
 
-    private static CycleAvoidingMappingContext INSTANCE = null;
+    // private static CycleAvoidingMappingContext INSTANCE = null;
 
 
-    @BeforeMapping
-    public <T> T getMappedInstance(Object source, @TargetType Class<T> targetType) {
-        return (T) knowInstances.get(source);
-    }
+    // @BeforeMapping
+    // public <T> T getMappedInstance(Object source, @TargetType Class<T> targetType) {
+    //     return (T) knowInstances.get(source);
+    // }
 
-    @BeforeMapping
-    public void storeMappedInstance(Object source, @MappingTarget Object target) {
-        knowInstances.put(source, target);
-    }
+    // @BeforeMapping
+    // public void storeMappedInstance(Object source, @MappingTarget Object target) {
+    //    knowInstances.put(source, target);
+    // }
 
     /*public static CycleAvoidingMappingContext getInstance() {
         if (INSTANCE == null)

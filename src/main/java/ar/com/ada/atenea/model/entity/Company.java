@@ -19,7 +19,7 @@ public class Company {
     @Column(nullable = false, length = 100)
     private String name;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 50)
     private Integer cuil;
 
     @Column(nullable = false, length = 100)
@@ -29,37 +29,18 @@ public class Company {
     private String address;
 
     @Column(nullable = false, length = 100)
-    private Integer year;
+    private Integer yearFoundation;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 50)
     private Integer phone;
 
     @Column(nullable = false, length = 100)
     private String typeCategory;
 
     @OneToMany(mappedBy = "company")
-    private List<Representative> representatives;
-
-    @ManyToMany(mappedBy = "companies")
     private List<Course> courses;
 
-    public Company(String name, Integer cuil, String typeCompany, String address, Integer year, Integer phone) {
-        this.name = name;
-        this.cuil = cuil;
-        this.typeCompany = typeCompany;
-        this.address = address;
-        this.year = year;
-        this.phone = phone;
-    }
-
-    public Company(Long id) {
-        this.id = id;
-    }
-
-    //public void addCompany(Company company) {
-      //  this.companys.add(company);}
-
-
-
+    @OneToMany(mappedBy = "company")
+    private List<Representative> representatives;
 
 }
