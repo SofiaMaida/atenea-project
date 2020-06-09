@@ -18,22 +18,22 @@ public class SocioEconomic {
     private Long id;
 
     @Column(nullable = false)
-    @Type(type = "org.hibernate.type.BooleanType")
+    //@Type(type = "org.hibernate.type.BooleanType")
     private Boolean isStudy;
 
     @Column(nullable = false)
-    @Type(type = "org.hibernate.type.BooleanType")
+    //@Type(type = "org.hibernate.type.BooleanType")
     private Boolean hasJob;
 
     @Column(nullable = false)
-    @Type(type = "org.hibernate.type.BooleanType")
+    // @Type(type = "org.hibernate.type.BooleanType")
     private Boolean haveIncome;
 
     @Column(nullable = false)
     private Integer howMuch;
 
     @Column(nullable = false)
-    @Type(type = "org.hibernate.type.BooleanType")
+    //@Type(type = "org.hibernate.type.BooleanType")
     private Boolean familyInCharge;
 
     @Column(nullable = false)
