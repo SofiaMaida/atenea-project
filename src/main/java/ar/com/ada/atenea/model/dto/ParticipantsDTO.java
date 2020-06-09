@@ -42,7 +42,7 @@ public class ParticipantsDTO implements Serializable {
     private String password;
 
     @JsonIgnoreProperties(value = "participants")
-    private GenreDTO genre;
+    private GenderDTO genre;
 
     @JsonIgnoreProperties(value = "participants")
     private DocumentTypeDTO documentType;

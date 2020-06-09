@@ -16,7 +16,7 @@ import java.util.Set;
 
 @Getter @Setter
 @NoArgsConstructor
-@JsonPropertyOrder({"id", "name", "cuil", "type_company", "address", "type_category", "year", "phone"})
+@JsonPropertyOrder({"id", "name", "cuil", "type_company", "address", "type_category", "year_foundation", "phone"})
 public class CompanyDTO implements Serializable {
 
     private Long id;
