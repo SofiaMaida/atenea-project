@@ -11,7 +11,7 @@ import java.io.Serializable;
 
 @Getter @Setter
 @NoArgsConstructor
-@JsonPropertyOrder({"id", "name", "gender", "birthday"})
+@JsonPropertyOrder({"id", "name", "description", "modality", "price", "hours", "category", "amountParticipants", "amountScholarship"})
 public class CourseDTO implements Serializable {
 
     private Long id;
@@ -44,7 +44,7 @@ public class CourseDTO implements Serializable {
 
     private Integer participantsCounter;
 
-    //@JsonIgnoreProperties(value = "courses")
-    //private CourseCategoryDTO courseCategory;
+    @JsonIgnoreProperties(value = "courses")
+    private CourseCategoryDTO courseCategory;
 
 }

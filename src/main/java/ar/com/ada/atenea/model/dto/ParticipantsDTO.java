@@ -22,7 +22,7 @@ public class ParticipantsDTO implements Serializable {
     @NotBlank(message = "name is required")
     private String name;
 
-    @NotBlank(message = "last_name is required")
+    @NotBlank(message = "lastName is required")
     private String lastName;
 
     @NotNull(message = "birthday is required")
@@ -33,7 +33,7 @@ public class ParticipantsDTO implements Serializable {
     @NotBlank(message = "location is required")
     private String location;
 
-    @NotBlank(message = "number_doc is required")
+    @NotBlank(message = "numberDoc is required")
     @Pattern(regexp = "[0-9]")
     private Integer numberDoc;
 
@@ -42,30 +42,12 @@ public class ParticipantsDTO implements Serializable {
     private String password;
 
     @JsonIgnoreProperties(value = "participants")
-    private GenderDTO genre;
+    private GenderDTO gender;
 
     @JsonIgnoreProperties(value = "participants")
     private DocumentTypeDTO documentType;
 
     @JsonIgnoreProperties(value = "participants")
-    private Set<SocioeconomicDTO> socioeconomic;
+    private Set<SocioEconomicDTO> socioeconomic;
 
-    public ParticipantsDTO(Long id, String name, String lastName, Date birthday, String location, Integer numberDoc, String password) {
-        this.id = id;
-        this.name = name;
-        this.lastName = lastName;
-        this.birthday = birthday;
-        this.location = location;
-        this.numberDoc = numberDoc;
-        this.password = password;
-    }
-
-    public ParticipantsDTO(String name, String lastName, Date birthday, String location, Integer numberDoc, String password) {
-        this.name = name;
-        this.lastName = lastName;
-        this.birthday = birthday;
-        this.location = location;
-        this.numberDoc = numberDoc;
-        this.password = password;
-    }
 }

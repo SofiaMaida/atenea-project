@@ -16,7 +16,7 @@ import java.util.Set;
 
 @Getter @Setter
 @NoArgsConstructor
-@JsonPropertyOrder({"id", "name", "cuil", "type_company", "address", "type_category", "year_foundation", "phone"})
+@JsonPropertyOrder({"id", "name", "cuil", "typeCompany", "typeCategory", "address", "yearFoundation", "phone"})
 public class CompanyDTO implements Serializable {
 
     private Long id;
@@ -26,7 +26,7 @@ public class CompanyDTO implements Serializable {
 
     @NotBlank(message = "cuil is required")
     @Pattern(regexp = "[0-9]")
-    private Integer cuil;
+    private Long cuil;
 
     @NotBlank(message = "type company is required")
     private String typeCompany;

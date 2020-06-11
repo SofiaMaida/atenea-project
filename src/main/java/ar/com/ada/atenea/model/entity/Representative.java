@@ -9,7 +9,8 @@ import java.util.List;
 
 @Getter @Setter
 @NoArgsConstructor
-@Entity(name = "Representative")
+@Entity
+@Table(name = "Representative")
 public class Representative {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,14 +23,13 @@ public class Representative {
     private String lastName;
 
     @Column(nullable = false, length = 11)
-    private Integer numberDoc;
+    private Long numberDoc;
 
     @Column(nullable = false, length = 100)
     private String positionCompany;
 
     @Column(nullable = false, length = 100)
     private String email;
-
 
     @Column(nullable = false, length = 100)
     private String password;

@@ -9,7 +9,8 @@ import java.util.List;
 
 @Getter @Setter
 @NoArgsConstructor
-@Entity(name = "Gender")
+@Entity
+@Table(name = "Gender")
 public class Gender {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,5 +22,7 @@ public class Gender {
     @OneToMany(mappedBy = "gender")
     private List<Participant> participants;
 
-
+    public Gender(String typeGender) {
+        this.typeGender = typeGender;
+    }
 }

@@ -2,6 +2,7 @@ package ar.com.ada.atenea.model.dto;
 
 import ar.com.ada.atenea.model.entity.DocumentType;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import java.io.Serializable;
 
 @Getter @Setter
 @NoArgsConstructor
+@JsonPropertyOrder({"id", "name", "lastName", "email"})
 public class AdministratorDTO implements Serializable {
 
     private Long id;
@@ -20,7 +22,7 @@ public class AdministratorDTO implements Serializable {
     @NotBlank(message = "name is required")
     private String name;
 
-    @NotBlank(message = "last_name is required")
+    @NotBlank(message = "lastName is required")
     private String lastName;
 
     @Size(message = "password must be least 4 characters long", min = 4)

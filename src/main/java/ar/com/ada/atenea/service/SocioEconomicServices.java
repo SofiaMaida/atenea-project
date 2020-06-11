@@ -1,7 +1,7 @@
 package ar.com.ada.atenea.service;
 
 import ar.com.ada.atenea.component.BusinessLogicExceptionComponent;
-import ar.com.ada.atenea.model.dto.SocioeconomicDTO;
+import ar.com.ada.atenea.model.dto.SocioEconomicDTO;
 import ar.com.ada.atenea.model.entity.SocioEconomic;
 import ar.com.ada.atenea.model.mapper.CycleAvoidingMappingContext;
 import ar.com.ada.atenea.model.mapper.SocioEconomicCycleMapper;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service("socioEconomicServices")
-public class SocioEconomicServices implements Services<SocioeconomicDTO>{
+public class SocioEconomicServices implements Services<SocioEconomicDTO>{
 
     @Autowired @Qualifier("businessLogicExceptionComponent")
     private BusinessLogicExceptionComponent logicExceptionComponent;
@@ -28,18 +28,18 @@ public class SocioEconomicServices implements Services<SocioeconomicDTO>{
 
 
     @Override
-    public List<SocioeconomicDTO> findAll() {
+    public List<SocioEconomicDTO> findAll() {
         List<SocioEconomic> all = socioEconomicRepository.findAll();
-        List<SocioeconomicDTO> socioeconomicDTOList = socioEconomicCycleMapper.toDto(all, context);
-        return socioeconomicDTOList;
+        List<SocioEconomicDTO> socioEconomicDTOList = socioEconomicCycleMapper.toDto(all, context);
+        return socioEconomicDTOList;
     }
 
     @Override
-    public SocioeconomicDTO save(SocioeconomicDTO dto) {
+    public SocioEconomicDTO save(SocioEconomicDTO dto) {
         SocioEconomic socioEconomicToSave = socioEconomicCycleMapper.toEntity(dto, context);
         SocioEconomic socioEconomicSaved = socioEconomicRepository.save(socioEconomicToSave);
-        SocioeconomicDTO socioeconomicDTOSaved = socioEconomicCycleMapper.toDto(socioEconomicSaved, context);
-        return socioeconomicDTOSaved;
+        SocioEconomicDTO socioEconomicDTOSaved = socioEconomicCycleMapper.toDto(socioEconomicSaved, context);
+        return socioEconomicDTOSaved;
     }
 
     @Override

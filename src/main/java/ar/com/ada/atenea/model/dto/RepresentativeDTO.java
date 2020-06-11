@@ -6,15 +6,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 
 @Getter @Setter
 @NoArgsConstructor
-@JsonPropertyOrder({"id", "name", "last_name", "number_doc", "position_company", "email"})
+@JsonPropertyOrder({"id", "name", "lastName", "numberDoc", "positionCompany", "email"})
 public class RepresentativeDTO implements Serializable {
 
     private Long id;
@@ -22,14 +20,14 @@ public class RepresentativeDTO implements Serializable {
     @NotBlank(message = "name is required")
     private String name;
 
-    @NotBlank(message = "last_name is required")
+    @NotBlank(message = "lastName is required")
     private String lastName;
 
-    @NotBlank(message = "number_doc is required")
+    @NotBlank(message = "numberDoc is required")
     @Pattern(regexp = "[0-9]")
-    private Integer numberDoc;
+    private Long numberDoc;
 
-    @NotBlank(message = "name is required")
+    @NotBlank(message = "positionCompany is required")
     private String positionCompany;
 
     @Email
@@ -40,28 +38,15 @@ public class RepresentativeDTO implements Serializable {
     @NotBlank(message = "password is required")
     private String password;
 
-    /*@JsonIgnoreProperties(value = "representatives")
-    private CompanyDTO companies;
+    @NotNull(message = "companyId is required")
+    private Long companyId;
 
     @JsonIgnoreProperties(value = "representatives")
-    private DocumentTypeDTO documentType;*/
+    @Valid
+    @NotNull(message = "DocumentType is required")
+    private DocumentTypeDTO documentType;
 
-    public RepresentativeDTO(Long id, String name, String lastName,Integer numberDoc, String positionCompany, String email, String password) {
-        this.id = id;
-        this.name = name;
-        this.lastName = lastName;
-        this.numberDoc = numberDoc;
-        this.positionCompany = positionCompany;
-        this.email = email;
-        this.password = password;
-    }
+    @JsonIgnoreProperties(value = "representatives")
+    private CompanyDTO companies;
 
-    public RepresentativeDTO(String name, String lastName,Integer numberDoc, String positionCompany, String email, String password) {
-        this.name = name;
-        this.lastName = lastName;
-        this.numberDoc = numberDoc;
-        this.positionCompany = positionCompany;
-        this.email = email;
-        this.password = password;
-    }
 }

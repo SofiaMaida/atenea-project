@@ -11,7 +11,7 @@ import java.io.Serializable;
 
 @Getter @Setter
 @NoArgsConstructor
-public class SocioeconomicDTO implements Serializable {
+public class SocioEconomicDTO implements Serializable {
 
     private Long id;
 
@@ -19,17 +19,20 @@ public class SocioeconomicDTO implements Serializable {
     private Boolean isStudy;
 
     @NotBlank(message = "this data is required")
-    private Boolean isWorking;
+    private Boolean hasJob;
 
     @NotBlank(message = "this data is required")
     private Boolean haveIncome;
 
     @NotBlank(message = "this data is required")
-    private Boolean howMuch;
+    private Integer howMuch;
 
     @NotBlank(message = "this data is required")
-    private Boolean haveDependentFamily;
+    private Boolean familyInCharge;
 
-    //@JsonIgnoreProperties(value = "socioeconomic") //participants_id
-    //private ParticipantsDTO participants;
+    @NotBlank(message = "this data is required")
+    private Integer howMuchFamily;
+
+    @JsonIgnoreProperties(value = "socioeconomic") //participants_id
+    private ParticipantsDTO participants;
 }

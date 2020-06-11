@@ -22,6 +22,7 @@ public class CourseCategory {
     @JoinColumn(name = "Course_id", nullable = false, referencedColumnName = "id")
     private Course course;
 
-
-
+    public CourseCategory(String typeCategory) {
+        this.typeCategory = typeCategory;
+    }
 }

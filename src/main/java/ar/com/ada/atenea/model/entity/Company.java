@@ -9,7 +9,8 @@ import java.util.List;
 
 @Getter @Setter
 @NoArgsConstructor
-@Entity(name = "Company")
+@Entity
+@Table(name = "Company")
 public class Company {
 
     @Id
@@ -20,7 +21,7 @@ public class Company {
     private String name;
 
     @Column(nullable = false, length = 50)
-    private Integer cuil;
+    private Long cuil;
 
     @Column(nullable = false, length = 100)
     private String typeCompany;

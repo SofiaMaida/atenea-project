@@ -12,23 +12,15 @@ import java.util.Set;
 
 @Getter @Setter
 @NoArgsConstructor
-@JsonPropertyOrder({"id", "type_genre"})
+@JsonPropertyOrder({"id", "typeGender"})
 public class GenderDTO implements Serializable {
 
     private Long id;
 
     @NotBlank(message = "type_genre is required")
-    private String typeGenre;
+    private String typeGender;
 
-    @JsonIgnoreProperties(value = "genre")
+    @JsonIgnoreProperties(value = "gender")
     private Set<ParticipantsDTO> participants;
 
-    public GenderDTO(Long id, String typeGenre) {
-        this.id = id;
-        this.typeGenre = typeGenre;
-    }
-
-    public GenderDTO(String typeGenre) {
-        this.typeGenre = typeGenre;
-    }
 }

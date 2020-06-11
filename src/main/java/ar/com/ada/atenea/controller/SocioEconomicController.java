@@ -1,6 +1,6 @@
 package ar.com.ada.atenea.controller;
 
-import ar.com.ada.atenea.model.dto.SocioeconomicDTO;
+import ar.com.ada.atenea.model.dto.SocioEconomicDTO;
 import ar.com.ada.atenea.service.SocioEconomicServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -21,13 +21,13 @@ public class SocioEconomicController {
 
     @GetMapping({"", "/"}) // localhost:8080/socioeconomics && localhost:8080/socioeconomics/ [GET]
     public ResponseEntity getAllSocioEconomics() {
-        List<SocioeconomicDTO> all = socioEconomicServices.findAll();
+        List<SocioEconomicDTO> all = socioEconomicServices.findAll();
         return ResponseEntity.ok(all);
     }
 
     @PostMapping({"", "/"}) // localhost:8080/socioeconomics && localhost:8080/socioeconomics/ [POST]
-    public ResponseEntity addNewSocioEconomic(@Valid @RequestBody SocioeconomicDTO socioeconomicDTO) throws URISyntaxException {
-        SocioeconomicDTO socioEconomicSaved = socioEconomicServices.save(socioeconomicDTO);
+    public ResponseEntity addNewSocioEconomic(@Valid @RequestBody SocioEconomicDTO socioeconomicDTO) throws URISyntaxException {
+        SocioEconomicDTO socioEconomicSaved = socioEconomicServices.save(socioeconomicDTO);
         return ResponseEntity.created(new URI("/socioeconomics/" + socioeconomicDTO.getId())).body(socioEconomicSaved);
     }
 
