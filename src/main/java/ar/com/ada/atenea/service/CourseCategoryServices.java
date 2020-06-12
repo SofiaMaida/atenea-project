@@ -2,14 +2,17 @@ package ar.com.ada.atenea.service;
 
 import ar.com.ada.atenea.component.BusinessLogicExceptionComponent;
 import ar.com.ada.atenea.model.dto.CourseCategoryDTO;
+import ar.com.ada.atenea.model.entity.Course;
 import ar.com.ada.atenea.model.entity.CourseCategory;
 import ar.com.ada.atenea.model.mapper.CourseCategoryCycleMapper;
 import ar.com.ada.atenea.model.mapper.CycleAvoidingMappingContext;
 import ar.com.ada.atenea.model.repository.CourseCategoryRepository;
+import ar.com.ada.atenea.model.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +24,9 @@ public class CourseCategoryServices implements Services<CourseCategoryDTO> {
 
     @Autowired @Qualifier("courseCategoryRepository")
     private CourseCategoryRepository courseCategoryRepository;
+
+    @Autowired @Qualifier("courseRepository")
+    private CourseRepository courseRepository;
 
     private CourseCategoryCycleMapper courseCategoryCycleMapper = CourseCategoryCycleMapper.MAPPER;
 
@@ -36,7 +42,13 @@ public class CourseCategoryServices implements Services<CourseCategoryDTO> {
 
     @Override
     public CourseCategoryDTO save(CourseCategoryDTO dto) {
+        Long courseId = dto.getCourseId();
+        Course course = courseRepository
+                .findById(courseId)
+                .orElseThrow(() -> logicExceptionComponent.throwExceptionEntityNotFound("Course", courseId));
+
         CourseCategory courseCategoryToSave = courseCategoryCycleMapper.toEntity(dto, context);
+        courseCategoryToSave.setCourse(course);
         CourseCategory courseCategorySaved = courseCategoryRepository.save(courseCategoryToSave);
         CourseCategoryDTO courseCategoryDTOSaved = courseCategoryCycleMapper.toDto(courseCategorySaved, context);
         return courseCategoryDTOSaved;

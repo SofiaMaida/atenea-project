@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Set;
 
@@ -17,6 +18,9 @@ public class CourseCategoryDTO implements Serializable {
 
     @NotBlank(message = "type_category is required")
     private String typeCategory;
+
+    @NotNull(message = "courseId is required")
+    private Long courseId;
 
     @JsonIgnoreProperties(value = "courseCategory")
     private Set<CourseDTO> courses;

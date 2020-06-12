@@ -20,7 +20,7 @@ public class GenderDTO implements Serializable {
     @NotBlank(message = "type_genre is required")
     private String typeGender;
 
-    @JsonIgnoreProperties(value = "gender")
-    private Set<ParticipantsDTO> participants;
+    //@JsonIgnoreProperties(value = "gender")
+    //private Set<ParticipantsDTO> participants;
 
 }

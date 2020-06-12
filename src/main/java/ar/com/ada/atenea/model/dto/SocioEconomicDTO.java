@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Getter @Setter
@@ -32,6 +33,9 @@ public class SocioEconomicDTO implements Serializable {
 
     @NotBlank(message = "this data is required")
     private Integer howMuchFamily;
+
+    @NotNull(message = "participantId is required")
+    private Long participantId;
 
     @JsonIgnoreProperties(value = "socioeconomic") //participants_id
     private ParticipantsDTO participants;

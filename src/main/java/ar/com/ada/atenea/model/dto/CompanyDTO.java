@@ -50,3 +50,18 @@ public class CompanyDTO implements Serializable {
     private Set<RepresentativeDTO> representatives;
 
 }
+
+/*
+{
+        "name":"",
+        "lastName":"",
+        "numberDoc":"",
+        "positionCompany":"",
+        "email":"",
+        "password":"",
+        "companyId":1,
+        "documentType":{
+        "id":1
+        }
+}
+ */

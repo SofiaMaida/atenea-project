@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Getter @Setter
@@ -39,6 +40,9 @@ public class CourseDTO implements Serializable {
 
     @NotBlank(message = "amount_scholarship is required")
     private Integer amountScholarship;
+
+    @NotNull(message = "companyId is required")
+    private Long companyId;
 
     private Integer scholarshipCounter;
 

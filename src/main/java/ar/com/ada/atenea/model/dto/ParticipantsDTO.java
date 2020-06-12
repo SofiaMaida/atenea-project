@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -41,10 +42,15 @@ public class ParticipantsDTO implements Serializable {
     @NotBlank(message = "password is required")
     private String password;
 
+    @NotNull(message = "genderId is required")
+    private Long genderId;
+
     @JsonIgnoreProperties(value = "participants")
     private GenderDTO gender;
 
     @JsonIgnoreProperties(value = "participants")
+    @Valid
+    @NotNull(message = "DocumentType is required")
     private DocumentTypeDTO documentType;
 
     @JsonIgnoreProperties(value = "participants")

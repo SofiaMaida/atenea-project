@@ -14,12 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
 
 @Service("representativeServices")
-public class RepresentativeServices implements Services<RepresentativeDTO>{
+public class RepresentativeServices implements Services<RepresentativeDTO> {
 
     @Autowired @Qualifier("businessLogicExceptionComponent")
     private BusinessLogicExceptionComponent logicExceptionComponent;
@@ -46,7 +45,6 @@ public class RepresentativeServices implements Services<RepresentativeDTO>{
     }
 
     public RepresentativeDTO findRepresentativeById(Long id) {
-        // SELECT * FROM Representative WHERE id = ?
         Optional<Representative> byIdOptional = representativeRepository.findById(id);
         RepresentativeDTO representativeDTO = null;
 
@@ -64,8 +62,7 @@ public class RepresentativeServices implements Services<RepresentativeDTO>{
         //Extrae el id para buscar la compañia
         Long companyId = dto.getCompanyId();
         //Busca la compañia en la base de datos
-        Company company;
-        company = companyRepository
+        Company company = companyRepository
                 //Busca por id
                 .findById(companyId)
                 //Si no lo encuentra lanza una excepcion

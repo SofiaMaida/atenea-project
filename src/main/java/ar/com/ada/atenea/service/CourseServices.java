@@ -2,15 +2,18 @@ package ar.com.ada.atenea.service;
 
 import ar.com.ada.atenea.component.BusinessLogicExceptionComponent;
 import ar.com.ada.atenea.model.dto.CourseDTO;
+import ar.com.ada.atenea.model.entity.Company;
 import ar.com.ada.atenea.model.entity.Course;
 import ar.com.ada.atenea.model.mapper.CourseCycleMapper;
 import ar.com.ada.atenea.model.mapper.CycleAvoidingMappingContext;
+import ar.com.ada.atenea.model.repository.CompanyRepository;
 import ar.com.ada.atenea.model.repository.CourseRepository;
 import ar.com.ada.atenea.service.Services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,10 +26,13 @@ public class CourseServices implements Services<CourseDTO> {
     @Autowired @Qualifier("courseRepository")
     private CourseRepository courseRepository;
 
-    private CourseCycleMapper courseCycleMapper = CourseCycleMapper.MAPPER;
+    @Autowired @Qualifier("companyRepository")
+    private CompanyRepository companyRepository;
 
     @Autowired @Qualifier("cycleAvoidingMappingContext")
     private CycleAvoidingMappingContext context;
+
+    private CourseCycleMapper courseCycleMapper = CourseCycleMapper.MAPPER;
 
     @Override
     public List<CourseDTO> findAll() {
@@ -51,7 +57,13 @@ public class CourseServices implements Services<CourseDTO> {
 
     @Override
     public CourseDTO save(CourseDTO dto) {
+        Long companyId = dto.getCompanyId();
+        Company company = companyRepository
+                .findById(companyId)
+                .orElseThrow(() -> logicExceptionComponent.throwExceptionEntityNotFound("Companny", companyId));
+
         Course courseToSave = courseCycleMapper.toEntity(dto, context);
+        courseToSave.setCompany(company);
         Course courseSaved = courseRepository.save(courseToSave);
         CourseDTO courseDTOSaved = courseCycleMapper.toDto(courseSaved, context);
         return courseDTOSaved;
