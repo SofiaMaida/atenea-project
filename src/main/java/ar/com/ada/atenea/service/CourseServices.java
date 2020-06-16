@@ -69,6 +69,7 @@ public class CourseServices implements Services<CourseDTO> {
             //proceso de compra
         Course courseToSave = courseCycleMapper.toEntity(dto, context);
         courseToSave.setCompany(company);
+        //courseToSave.setCourse(course);
         Course courseSaved = courseRepository.save(courseToSave);
         CourseDTO courseDTOSaved = courseCycleMapper.toDto(courseSaved, context);
 
