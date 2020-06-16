@@ -62,10 +62,22 @@ public class CourseServices implements Services<CourseDTO> {
                 .findById(companyId)
                 .orElseThrow(() -> logicExceptionComponent.throwExceptionEntityNotFound("Companny", companyId));
 
+        //Long courseId = dto.getId();
+        //Course course = courseRepository.findById(courseId);
+        //Si el contador de participantes (ej 10) es menor a cantidad de participantes (ej total 30)
+        //if (course.getParticipantsCounter() < course.getAmountParticipants()) {
+            //proceso de compra
         Course courseToSave = courseCycleMapper.toEntity(dto, context);
         courseToSave.setCompany(company);
         Course courseSaved = courseRepository.save(courseToSave);
         CourseDTO courseDTOSaved = courseCycleMapper.toDto(courseSaved, context);
+
+        //update campo de compras directas
+        //} else {
+            //no hay cupos
+        //  logicExceptionComponent.throwExceptionSoldOut("Course", course);
+        //}
+
         return courseDTOSaved;
     }
 

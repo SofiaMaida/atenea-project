@@ -24,7 +24,7 @@ public class CourseHasParticipantDTO implements Serializable {
     @NotBlank(message = "has_finish is required")
     private Boolean hasFinish;
 
-    //tipo de solicitud del curso: beca o compra directa
+    //tipo de solicitud del curso: compra directa (true) o beca (false)
     @NotBlank(message = "type_request is required")
     private Boolean typeRequest;
 

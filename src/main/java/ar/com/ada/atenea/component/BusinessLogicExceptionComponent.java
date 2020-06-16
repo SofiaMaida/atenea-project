@@ -21,4 +21,13 @@ public class BusinessLogicExceptionComponent {
                 apiEntityError
         );
     }
+
+    public void throwExceptionSoldOut(String entityName, Long id) {
+        ApiEntityError apiEntityError = new ApiEntityError(
+                entityName,
+                "Not available",
+                "There are no vacancies available"
+        );
+    }
+
 }

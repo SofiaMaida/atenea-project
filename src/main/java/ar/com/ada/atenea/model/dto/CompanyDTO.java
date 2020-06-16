@@ -53,15 +53,12 @@ public class CompanyDTO implements Serializable {
 
 /*
 {
-        "name":"",
-        "lastName":"",
-        "numberDoc":"",
-        "positionCompany":"",
-        "email":"",
-        "password":"",
-        "companyId":1,
-        "documentType":{
-        "id":1
-        }
+    "name":"",
+    "cuil":20304005006,
+    "typeCompany":"",
+    "address":"",
+    "yearFoundation":2009,
+    "phone":1212341234,
+    "typeCategory":""
 }
  */
