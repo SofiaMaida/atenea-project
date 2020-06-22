@@ -52,3 +52,17 @@ public class CourseDTO implements Serializable {
     private CourseCategoryDTO courseCategory;
 
 }
+/*
+
+{
+    "name":"backend",
+    "description":"curso de desarrollo backend",
+    "modality":"presencial",
+    "price": 20000,
+    "hours":400,
+    "category":"IT",
+    "amountParticipants":20,
+    "amountScholarship": 5,
+    "companyId": 1
+    }
+*/

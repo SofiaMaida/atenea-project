@@ -4,7 +4,7 @@ import ar.com.ada.atenea.model.entity.Gender;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository("genreRepository")
+@Repository("genderRepository")
 public interface GenderRepository extends JpaRepository<Gender, Long> {
 
 }

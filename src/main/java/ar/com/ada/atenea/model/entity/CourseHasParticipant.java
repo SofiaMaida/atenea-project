@@ -33,12 +33,12 @@ public class CourseHasParticipant implements Serializable {
     //tipo de solicitud del curso: compra directa (true) o beca (false)
     @Column(nullable = false)
     @Type(type = "org.hibernate.type.BooleanType")
-    private Boolean typeRequest;
+    private Boolean isBuy;
 
     //estado de la solicitud: true (aceptado) / false (denegado)
     @Column(nullable = false)
     @Type(type = "org.hibernate.type.BooleanType")
-    private Boolean status;
+    private Boolean hasApproved;
 
     //porcentaje de la beca
     @Column

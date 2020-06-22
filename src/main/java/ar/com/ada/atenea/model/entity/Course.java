@@ -49,12 +49,13 @@ public class Course implements Serializable {
     @Column(nullable = true)
     private Integer participantsCounter;
 
-    @OneToMany(mappedBy = "course")
-    private List<CourseCategory> courseCategories;
-
     @ManyToOne
     @JoinColumn(name = "Company_id", referencedColumnName = "id", nullable = false)
     private Company company;
+
+    @ManyToOne
+    @JoinColumn(name = "CourseCategory_id", referencedColumnName = "id", nullable = false)
+    private CourseCategory courseCategory;
 
     @OneToMany(mappedBy = "course")
     private Set<CourseHasParticipant> courseHasParticipants;

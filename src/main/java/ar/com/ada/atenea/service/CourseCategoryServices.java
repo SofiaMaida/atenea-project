@@ -42,13 +42,7 @@ public class CourseCategoryServices implements Services<CourseCategoryDTO> {
 
     @Override
     public CourseCategoryDTO save(CourseCategoryDTO dto) {
-        Long courseId = dto.getCourseId();
-        Course course = courseRepository
-                .findById(courseId)
-                .orElseThrow(() -> logicExceptionComponent.throwExceptionEntityNotFound("Course", courseId));
-
         CourseCategory courseCategoryToSave = courseCategoryCycleMapper.toEntity(dto, context);
-        courseCategoryToSave.setCourse(course);
         CourseCategory courseCategorySaved = courseCategoryRepository.save(courseCategoryToSave);
         CourseCategoryDTO courseCategoryDTOSaved = courseCategoryCycleMapper.toDto(courseCategorySaved, context);
         return courseCategoryDTOSaved;

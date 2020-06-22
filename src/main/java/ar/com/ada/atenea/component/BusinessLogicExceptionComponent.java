@@ -22,11 +22,17 @@ public class BusinessLogicExceptionComponent {
         );
     }
 
-    public void throwExceptionSoldOut(String entityName, Long id) {
+    public void throwExceptionSoldOut(String courseName) {
         ApiEntityError apiEntityError = new ApiEntityError(
-                entityName,
+                courseName,
                 "Not available",
                 "There are no vacancies available"
+        );
+
+        throw new BusinessLogicException(
+                courseName + " Not available",
+                HttpStatus.BAD_REQUEST,
+                apiEntityError
         );
     }
 

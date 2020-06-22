@@ -4,9 +4,11 @@ import ar.com.ada.atenea.component.BusinessLogicExceptionComponent;
 import ar.com.ada.atenea.model.dto.CourseDTO;
 import ar.com.ada.atenea.model.entity.Company;
 import ar.com.ada.atenea.model.entity.Course;
+import ar.com.ada.atenea.model.entity.CourseCategory;
 import ar.com.ada.atenea.model.mapper.CourseCycleMapper;
 import ar.com.ada.atenea.model.mapper.CycleAvoidingMappingContext;
 import ar.com.ada.atenea.model.repository.CompanyRepository;
+import ar.com.ada.atenea.model.repository.CourseCategoryRepository;
 import ar.com.ada.atenea.model.repository.CourseRepository;
 import ar.com.ada.atenea.service.Services;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public class CourseServices implements Services<CourseDTO> {
 
     @Autowired @Qualifier("courseRepository")
     private CourseRepository courseRepository;
+
+    @Autowired @Qualifier("courseCategoryRepository")
+    private CourseCategoryRepository courseCategoryRepository;
 
     @Autowired @Qualifier("companyRepository")
     private CompanyRepository companyRepository;
@@ -62,22 +67,43 @@ public class CourseServices implements Services<CourseDTO> {
                 .findById(companyId)
                 .orElseThrow(() -> logicExceptionComponent.throwExceptionEntityNotFound("Companny", companyId));
 
-        //Long courseId = dto.getId();
-        //Course course = courseRepository.findById(courseId);
-        //Si el contador de participantes (ej 10) es menor a cantidad de participantes (ej total 30)
-        //if (course.getParticipantsCounter() < course.getAmountParticipants()) {
-            //proceso de compra
+        Long courseCategoryId = dto.getCourseCategory().getId();
+        CourseCategory courseCategory = courseCategoryRepository
+                .findById(courseCategoryId)
+                .orElseThrow(() -> logicExceptionComponent.throwExceptionEntityNotFound("CourseCategory", courseCategoryId));
+
         Course courseToSave = courseCycleMapper.toEntity(dto, context);
         courseToSave.setCompany(company);
-        //courseToSave.setCourse(course);
+        courseToSave.setCourseCategory(courseCategory);
+
+        // se calcula la cantidad de cupos para la comprar
+        Integer amountBuy = courseToSave.getAmountParticipants() - courseToSave.getAmountScholarship();
+
+        // se setea esa cantidad
+        courseToSave.setParticipantsCounter(amountBuy);
+
+        // se setea la cantidad de cupos para becas
+        courseToSave.setScholarshipCounter(courseToSave.getAmountScholarship());
+
+        //if (courseToSave.getParticipantsCounter() < 0) {
+        //    courseToSave.setParticipantsCounter(courseToSave.getParticipantsCounter() - 1); // compra directa
+        //} else {
+        //  throw new RuntimeException("No hay cupos para comprar");
+        //}
+
+        //if (courseToSave.getScholarshipCounter() < 0) {
+        //    courseToSave.setScholarshipCounter(courseToSave.getScholarshipCounter() - 1); // admin aprueba
+        //} else {
+        //  throw new RuntimeException("No hay cupos para becas");
+        //}
+
+        //} else {
+        //no hay cupos
+        //logicExceptionComponent.throwExceptionSoldOut("Course", course);
+        //}
+
         Course courseSaved = courseRepository.save(courseToSave);
         CourseDTO courseDTOSaved = courseCycleMapper.toDto(courseSaved, context);
-
-        //update campo de compras directas
-        //} else {
-            //no hay cupos
-        //  logicExceptionComponent.throwExceptionSoldOut("Course", course);
-        //}
 
         return courseDTOSaved;
     }

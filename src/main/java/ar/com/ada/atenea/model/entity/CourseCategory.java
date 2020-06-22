@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter @Setter
 @NoArgsConstructor
@@ -18,11 +19,17 @@ public class CourseCategory {
     @Column(nullable = false, length = 100)
     private String typeCategory;
 
-    @ManyToOne
-    @JoinColumn(name = "Course_id", nullable = false, referencedColumnName = "id")
-    private Course course;
+    @OneToMany(mappedBy = "courseCategory")
+    private List<Course> courses;
 
-    public CourseCategory(String typeCategory) {
-        this.typeCategory = typeCategory;
+    public CourseCategory setId(Long id) {
+        this.id = id;
+        return this;
     }
+
+    public CourseCategory setTypeCategory(String typeCategory) {
+        this.typeCategory = typeCategory;
+        return this;
+    }
+
 }
