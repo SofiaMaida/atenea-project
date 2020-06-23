@@ -28,7 +28,7 @@ public class CourseCategoryController {
     @Autowired @Qualifier("courseCategoryRepository")
     private CourseCategoryRepository courseCategoryRepository;
 
-    @GetMapping({"", "/"})
+    @GetMapping({"", "/"}) //localhost:8080/courseCategories?page=0&sortBy=typeCategory
     public Page<CourseCategory> getAllCourseCategory(@RequestParam Optional<String> typeCategory,
                                                      @RequestParam Optional<Integer> page,
                                                      @RequestParam Optional<String> sortBy) {

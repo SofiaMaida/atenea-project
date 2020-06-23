@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository("courseCategoryRepository")
 public interface CourseCategoryRepository extends JpaRepository<CourseCategory, Long> {
 
-    @Query("select s from CourseCategory s where category like %?1%")
+    @Query("select s from CourseCategory s where typeCategory like %?1%")
     Page<CourseCategory> findByCategory(String category, Pageable pageable);
 
 }
