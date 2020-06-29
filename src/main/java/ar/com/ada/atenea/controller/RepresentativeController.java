@@ -6,6 +6,7 @@ import ar.com.ada.atenea.service.RepresentativeServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -26,28 +27,11 @@ public class RepresentativeController {
         return ResponseEntity.ok(all);
     }
 
-    @GetMapping({"/{id}", "/{id}/"})
-    public ResponseEntity getRepresentativeById(@PathVariable Long id) {
-        RepresentativeDTO representativeById = representativeServices.findRepresentativeById(id);
-        return ResponseEntity.ok(representativeById);
-    }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping({"", "/"})
     public ResponseEntity addNewRepresentative(@Valid @RequestBody RepresentativeDTO representativeDTO) throws URISyntaxException {
         RepresentativeDTO representativeSaved = representativeServices.save(representativeDTO);
         return ResponseEntity.created(new URI("/representative/" + representativeDTO.getId())).body(representativeSaved);
-    }
-
-    @PutMapping({ "/{id}", "/{id}/" })
-    public ResponseEntity updateRepresentativeById(@Valid @RequestBody RepresentativeDTO representativeDTO, @PathVariable Long id) {
-        RepresentativeDTO representativeUpdated = representativeServices.updateRepresentative(representativeDTO, id);
-        return ResponseEntity.ok(representativeUpdated);
-    }
-
-    @DeleteMapping({"", "/"})
-    public ResponseEntity deleteRepresentative(@PathVariable Long id) {
-        representativeServices.delete(id);
-        return ResponseEntity.noContent().build();
     }
 
 }

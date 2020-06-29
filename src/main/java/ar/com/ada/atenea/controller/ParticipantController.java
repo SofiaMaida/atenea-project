@@ -1,10 +1,13 @@
 package ar.com.ada.atenea.controller;
 
 import ar.com.ada.atenea.model.dto.ParticipantsDTO;
+import ar.com.ada.atenea.model.dto.SocioEconomicDTO;
 import ar.com.ada.atenea.service.ParticipantServices;
+import ar.com.ada.atenea.service.SocioEconomicServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -19,34 +22,21 @@ public class ParticipantController {
     @Autowired @Qualifier("participantServices")
     private ParticipantServices participantServices;
 
-    @GetMapping({"", "/"})
-    public ResponseEntity getAllParticipants() {
-        List<ParticipantsDTO> all = participantServices.findAll();
-        return ResponseEntity.ok(all);
-    }
+    @Autowired @Qualifier("socioEconomicServices")
+    private SocioEconomicServices socioEconomicServices;
 
-    @GetMapping({"/{id}", "/{id}/"}) // localhost:8080/participants/{id} && localhost:8080/participants/{id}/ [GET]
-    public ResponseEntity getParticipantById(@PathVariable Long id) {
-        ParticipantsDTO participantsById = participantServices.findParticipantsById(id);
-        return ResponseEntity.ok(participantsById);
-    }
-
+    @PreAuthorize("hasRole('PARTICIPANT')")
     @PostMapping({"", "/"})
     public ResponseEntity addNewParticipant(@Valid @RequestBody ParticipantsDTO participantsDTO) throws URISyntaxException {
         ParticipantsDTO participantSaved = participantServices.save(participantsDTO);
         return ResponseEntity.created(new URI("/participants/" + participantsDTO.getId())).body(participantSaved);
     }
 
-    @PutMapping({"/{id}", "/{id}/"})
-    public ResponseEntity updateParticipantById(@Valid @RequestBody ParticipantsDTO participantsDTO, @PathVariable Long id) {
-        ParticipantsDTO updateParticipant = participantServices.updateParticipant(participantsDTO, id);
-        return ResponseEntity.ok(updateParticipant);
-    }
-
-    @DeleteMapping({"", "/"})
-    public ResponseEntity deleteParticipant(@PathVariable Long id) {
-        participantServices.delete(id);
-        return ResponseEntity.noContent().build();
+    @PreAuthorize("hasRole('PARTICIPANT')")
+    @PostMapping({"/socioeconomics", "/socioeconomics/"}) // localhost:8080/socioeconomics && localhost:8080/socioeconomics/ [POST]
+    public ResponseEntity addNewSocioEconomic(@Valid @RequestBody SocioEconomicDTO socioeconomicDTO) throws URISyntaxException {
+        SocioEconomicDTO socioEconomicSaved = socioEconomicServices.save(socioeconomicDTO);
+        return ResponseEntity.created(new URI("/socioeconomicsStudies/" + socioeconomicDTO.getId())).body(socioEconomicSaved);
     }
 
 }
