@@ -31,17 +31,33 @@ public class CourseHasParticipant implements Serializable {
     private Boolean hasFinish;
 
     //tipo de solicitud del curso: compra directa (true) o beca (false)
+
     @Column(nullable = false)
     @Type(type = "org.hibernate.type.BooleanType")
     private Boolean isBuy;
-
     //estado de la solicitud: true (aceptado) / false (denegado)
+
     @Column(nullable = false)
     @Type(type = "org.hibernate.type.BooleanType")
     private Boolean hasApproved;
-
     //porcentaje de la beca
+
     @Column
     private Integer percentage;
+
+    public CourseHasParticipant setId(CourseParticipantId id) {
+        this.id = id;
+        return this;
+    }
+
+    public CourseHasParticipant setCourse(Course course) {
+        this.course = course;
+        return this;
+    }
+
+    public CourseHasParticipant setParticipant(Participant participant) {
+        this.participant = participant;
+        return this;
+    }
 
 }

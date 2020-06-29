@@ -1,6 +1,7 @@
 package ar.com.ada.atenea.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,8 @@ import java.io.Serializable;
 
 @Getter @Setter
 @NoArgsConstructor
-@JsonPropertyOrder({"id", "name", "description", "modality", "price", "hours", "category", "amountParticipants", "amountScholarship"})
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({"id", "name", "description", "modality", "price", "hours", "amountParticipants", "amountScholarship"})
 public class CourseDTO implements Serializable {
 
     private Long id;
@@ -32,9 +34,6 @@ public class CourseDTO implements Serializable {
     @NotBlank(message = "hours is required")
     private Integer hours;
 
-    @NotBlank(message = "category is required")
-    private String category;
-
     @NotBlank(message = "amount_participants is required")
     private Integer amountParticipants;
 
@@ -51,6 +50,45 @@ public class CourseDTO implements Serializable {
     @JsonIgnoreProperties(value = "courses")
     private CourseCategoryDTO courseCategory;
 
+    public CourseDTO setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    public CourseDTO setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public CourseDTO setDescription(String description) {
+        this.description = description;
+        return this;
+    }
+
+    public CourseDTO setModality(String modality) {
+        this.modality = modality;
+        return this;
+    }
+
+    public CourseDTO setPrice(Integer price) {
+        this.price = price;
+        return this;
+    }
+
+    public CourseDTO setHours(Integer hours) {
+        this.hours = hours;
+        return this;
+    }
+
+    public CourseDTO setAmountParticipants(Integer amountParticipants) {
+        this.amountParticipants = amountParticipants;
+        return this;
+    }
+
+    public CourseDTO setAmountScholarship(Integer amountScholarship) {
+        this.amountScholarship = amountScholarship;
+        return this;
+    }
 }
 /*
 
@@ -60,7 +98,6 @@ public class CourseDTO implements Serializable {
     "modality":"presencial",
     "price": 20000,
     "hours":400,
-    "category":"IT",
     "amountParticipants":20,
     "amountScholarship": 5,
     "companyId": 1

@@ -31,9 +31,6 @@ public class Representative {
     @Column(nullable = false, length = 100)
     private String email;
 
-    @Column(nullable = false, length = 100)
-    private String password;
-
     @ManyToOne
     @JoinColumn(name = "DocumentType_id", referencedColumnName = "id", nullable = false)
     private DocumentType documentType;

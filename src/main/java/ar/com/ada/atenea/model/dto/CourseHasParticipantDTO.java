@@ -3,6 +3,7 @@ package ar.com.ada.atenea.model.dto;
 import ar.com.ada.atenea.model.entity.Course;
 import ar.com.ada.atenea.model.entity.CourseParticipantId;
 import ar.com.ada.atenea.model.entity.Participant;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

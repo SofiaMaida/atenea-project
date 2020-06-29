@@ -36,11 +36,11 @@ public class CourseCategoryLoaderData implements ApplicationRunner {
             LOGGER.info("Loading course category initial data... ");
 
             List<CourseCategory> courseCategoryList = Arrays.asList(
-                    new CourseCategory().setId(1L).setTypeCategory("IT"),
-                    new CourseCategory().setId(2L).setTypeCategory("Idiomas"),
-                    new CourseCategory().setId(3L).setTypeCategory("Alimentacion"),
-                    new CourseCategory().setId(4L).setTypeCategory("Turismo"),
-                    new CourseCategory().setId(5L).setTypeCategory("Musica")
+                    new CourseCategory().setId(1L).setTypeCategory("Desarollo"),
+                    new CourseCategory().setId(2L).setTypeCategory("Ingles"),
+                    new CourseCategory().setId(3L).setTypeCategory("Veganismo"),
+                    new CourseCategory().setId(4L).setTypeCategory("Argentina"),
+                    new CourseCategory().setId(5L).setTypeCategory("Canto")
             );
             //courseCategoryRepository.saveAll(courseCategoryList);
             courseCategoryList.forEach(courseCategory -> courseCategoryRepository.save(courseCategory));

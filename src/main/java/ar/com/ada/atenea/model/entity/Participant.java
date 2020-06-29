@@ -33,9 +33,6 @@ public class Participant {
     @Column(nullable = false, length = 12)
     private Integer numberDoc;
 
-    @Column(nullable = false, length = 100)
-    private String password;
-
     @ManyToOne
     @JoinColumn(name = "DocumentType_id", referencedColumnName = "id", nullable = false)
     private DocumentType documentType;
@@ -50,4 +47,28 @@ public class Participant {
     @OneToMany(mappedBy = "participant")
     private Set<CourseHasParticipant> participant;
 
+    public Participant setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    public Participant setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public Participant setLastName(String lastName) {
+        this.lastName = lastName;
+        return this;
+    }
+
+    public Participant setLocation(String location) {
+        this.location = location;
+        return this;
+    }
+
+    public Participant setNumberDoc(Integer numberDoc) {
+        this.numberDoc = numberDoc;
+        return this;
+    }
 }

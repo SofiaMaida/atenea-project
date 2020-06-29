@@ -24,9 +24,6 @@ public class Company {
     private Long cuil;
 
     @Column(nullable = false, length = 100)
-    private String typeCompany;
-
-    @Column(nullable = false, length = 100)
     private String address;
 
     @Column(nullable = false, length = 100)
@@ -35,13 +32,14 @@ public class Company {
     @Column(nullable = false, length = 50)
     private Integer phone;
 
-    @Column(nullable = false, length = 100)
-    private String typeCategory;
-
-    @OneToMany(mappedBy = "company")
+   @OneToMany(mappedBy = "company")
     private List<Course> courses;
 
     @OneToMany(mappedBy = "company")
     private List<Representative> representatives;
+
+    //@ManyToOne
+    //@JoinColumn(name = "CompanyCategory_id", nullable = false)
+    //private CompanyCategory companyCategory;
 
 }

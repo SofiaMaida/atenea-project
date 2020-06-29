@@ -1,6 +1,9 @@
 package ar.com.ada.atenea.service;
 import ar.com.ada.atenea.component.BusinessLogicExceptionComponent;
+import ar.com.ada.atenea.model.dto.CourseHasFinishedDTO;
 import ar.com.ada.atenea.model.dto.CourseHasParticipantDTO;
+import ar.com.ada.atenea.model.dto.ParticipantCourseApplicationDTO;
+import ar.com.ada.atenea.model.dto.ScholarshipApprovalDTO;
 import ar.com.ada.atenea.model.entity.Course;
 import ar.com.ada.atenea.model.entity.CourseHasParticipant;
 import ar.com.ada.atenea.model.entity.CourseParticipantId;
@@ -34,7 +37,7 @@ public class CourseHasParticipantServices {
     @Autowired @Qualifier("courseHasParticipantRepository")
     private CourseHasParticipantRepository courseHasParticipantRepository;
 
-    public CourseHasParticipantDTO courseApplication(CourseHasParticipantDTO dto, Long courseId, Long participantId) {
+    public CourseHasParticipantDTO saveCourseApplication(ParticipantCourseApplicationDTO dto, Long courseId, Long participantId) {
         Course course = courseRepository
                 .findById(courseId)
                 .orElseThrow(() -> logicExceptionComponent.throwExceptionEntityNotFound("Course", courseId));
@@ -43,51 +46,104 @@ public class CourseHasParticipantServices {
                 .findById(participantId)
                 .orElseThrow(() -> logicExceptionComponent.throwExceptionEntityNotFound("Participant", participantId));
 
+        CourseParticipantId id = new CourseParticipantId()
+                .setCourseId(course.getId())
+                .setParticipantId(participant.getId());
+
+        courseHasParticipantRepository
+                .findById(id)
+                .ifPresent(courseHasParticipant -> {
+                    throw logicExceptionComponent.getExceptionApplicationAlreadyExists(id);
+                });
+
+        CourseHasParticipant courseHasParticipantToSave = new CourseHasParticipant()
+                .setId(id)
+                .setCourse(course)
+                .setParticipant(participant);
+
         CourseHasParticipantDTO courseApplication;
-        if (dto.getIsBuy()) {
-            courseApplication = this.saveCourseApplicationByPurchase(participant, course);
+        if (dto.getIsScholarship()) {
+            courseApplication = this.saveCourseApplicationByScholarship(courseHasParticipantToSave);
         } else {
-            courseApplication = this.saveCourseApplicationByScholarship(participant, course);
+            courseApplication = this.saveCourseApplicationByPurchase(courseHasParticipantToSave);
         }
         return courseApplication;
     }
-    public CourseHasParticipantDTO saveCourseApplicationByPurchase(Participant participant, Course course) {
-        if (course.getParticipantsCounter() == 0) {
-            logicExceptionComponent.throwExceptionSoldOut(course.getName());
-        }
-        CourseParticipantId id = new CourseParticipantId();
-        id.setCourseId(course.getId());
-        id.setParticipantId(participant.getId());
+    public CourseHasParticipantDTO saveCourseApplicationByPurchase(CourseHasParticipant courseHasParticipantToSave) {
+        Integer participantsCounter = courseHasParticipantToSave.getCourse().getParticipantsCounter();
 
-        CourseHasParticipant courseHasParticipantToSave = new CourseHasParticipant();
-        courseHasParticipantToSave.setId(id);
+        if (participantsCounter == 0)
+            logicExceptionComponent.throwExceptionSoldOut(courseHasParticipantToSave.getCourse().getName());
+
         courseHasParticipantToSave.setHasApproved(true);
         courseHasParticipantToSave.setIsBuy(true);
         courseHasParticipantToSave.setPercentage(0);
         courseHasParticipantToSave.setHasFinish(false);
+
         CourseHasParticipant courseHasParticipantSaved = courseHasParticipantRepository.save(courseHasParticipantToSave);
 
-        int participantsCounter = course.getParticipantsCounter() - 1;
-        course.setParticipantsCounter(participantsCounter);
-        courseRepository.save(course);
-
         CourseHasParticipantDTO courseApplicationByPurchase = courseHasParticipantMapper.toDto(courseHasParticipantSaved, context);
+
         return courseApplicationByPurchase;
     }
-    public CourseHasParticipantDTO saveCourseApplicationByScholarship(Participant participant, Course course) {
-        CourseParticipantId id = new CourseParticipantId();
-        id.setCourseId(course.getId());
-        id.setParticipantId(participant.getId());
 
-        CourseHasParticipant courseHasParticipantToSave = new CourseHasParticipant();
-        courseHasParticipantToSave.setId(id);
-        courseHasParticipantToSave.setHasApproved(null);
+    public CourseHasParticipantDTO saveCourseApplicationByScholarship(CourseHasParticipant courseHasParticipantToSave) {
+
         courseHasParticipantToSave.setIsBuy(false);
-        courseHasParticipantToSave.setPercentage(null);
         courseHasParticipantToSave.setHasFinish(false);
         CourseHasParticipant courseHasParticipantSaved = courseHasParticipantRepository.save(courseHasParticipantToSave);
 
         CourseHasParticipantDTO courseApplicationByScholarship = courseHasParticipantMapper.toDto(courseHasParticipantSaved, context);
         return courseApplicationByScholarship;
     }
+
+    public CourseHasParticipantDTO scholarshipApproval(ScholarshipApprovalDTO dto, Long courseId, Long participantId) {
+        CourseParticipantId id = new CourseParticipantId()
+                .setCourseId(courseId)
+                .setParticipantId(participantId);
+
+        CourseHasParticipant courseHasParticipant = courseHasParticipantRepository
+                .findById(id)
+                .orElseThrow(() -> logicExceptionComponent.throwExceptionEntityNotFound("CourseHasParticipant", id));
+
+        Integer scholarshipCounter = courseHasParticipant.getCourse().getScholarshipCounter();
+
+        //Verifica si se puede aprobar el curso
+        if (scholarshipCounter == 0)
+            throw logicExceptionComponent.throwExceptionSoldOut(courseHasParticipant.getCourse().getName());
+
+        //Si se puede aprobar, se settea los datos y se actualiza el contador de becas (" - 1")
+        if (dto.getIsApproved()) {
+            courseHasParticipant.setHasApproved(dto.getIsApproved());
+            courseHasParticipant.setPercentage(dto.getScholarshipPercentage());
+            courseHasParticipant.getCourse().setScholarshipCounter(scholarshipCounter - 1);
+
+        } else {
+            //Si no, solo se actualiza el "false" en el estatus de la aprobacion y el porcentaje a 0
+            courseHasParticipant.setHasApproved(dto.getIsApproved());
+            courseHasParticipant.setPercentage(0);
+        }
+        CourseHasParticipantDTO courseHasParticipantDTOUpdated = courseHasParticipantMapper.toDto(courseHasParticipant, context);
+
+        return courseHasParticipantDTOUpdated;
+    }
+
+    public CourseHasParticipantDTO courseHasFinished(CourseHasFinishedDTO dto, Long courseId, Long participantId) {
+        CourseParticipantId id = new CourseParticipantId()
+                .setCourseId(courseId)
+                .setParticipantId(participantId);
+
+        CourseHasParticipant courseHasParticipant = courseHasParticipantRepository
+                .findById(id)
+                .orElseThrow(() -> logicExceptionComponent.throwExceptionEntityNotFound("CourseHasParticipant", id));
+
+        if (!courseHasParticipant.getHasFinish() && dto.getCourseHasFinished()) {
+            courseHasParticipant.setHasFinish(dto.getCourseHasFinished());
+        }
+
+        CourseHasParticipantDTO courseHasParticipantDTOUpdated = courseHasParticipantMapper.toDto(courseHasParticipant, context);
+
+        return courseHasParticipantDTOUpdated;
+    }
+
 }

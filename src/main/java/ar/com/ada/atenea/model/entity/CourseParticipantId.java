@@ -22,4 +22,13 @@ public class CourseParticipantId implements Serializable {
     @Column(name = "Participant_Id")
     private Long participantId;
 
+    public CourseParticipantId setCourseId(Long courseId) {
+        this.courseId = courseId;
+        return this;
+    }
+
+    public CourseParticipantId setParticipantId(Long participantId) {
+        this.participantId = participantId;
+        return this;
+    }
 }

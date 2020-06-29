@@ -2,6 +2,7 @@ package ar.com.ada.atenea.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,8 @@ import java.util.Set;
 
 @Getter @Setter
 @NoArgsConstructor
-@JsonPropertyOrder({"id", "name", "cuil", "typeCompany", "typeCategory", "address", "yearFoundation", "phone"})
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({"id", "name", "cuil", "typeCompany", "address", "yearFoundation", "phone"})
 public class CompanyDTO implements Serializable {
 
     private Long id;
@@ -27,9 +29,6 @@ public class CompanyDTO implements Serializable {
     @NotBlank(message = "cuil is required")
     @Pattern(regexp = "[0-9]")
     private Long cuil;
-
-    @NotBlank(message = "type company is required")
-    private String typeCompany;
 
     @NotBlank(message = "address is required")
     private String address;
@@ -43,11 +42,11 @@ public class CompanyDTO implements Serializable {
     @Pattern(regexp = "[0-9]")
     private Integer phone;
 
-    @NotBlank(message = "type category is required")
-    private String typeCategory;
-
-    @JsonIgnoreProperties(value = "companies")
+   @JsonIgnoreProperties(value = "companies")
     private Set<RepresentativeDTO> representatives;
+
+    //@JsonIgnoreProperties(value = "companies")
+    //private CompanyCategoryDTO companyCategory;
 
 }
 
@@ -59,6 +58,6 @@ public class CompanyDTO implements Serializable {
     "address":"",
     "yearFoundation":2009,
     "phone":1212341234,
-    "typeCategory":""
+    "companyCategory":""
 }
  */

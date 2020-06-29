@@ -9,13 +9,16 @@ import ar.com.ada.atenea.model.repository.CompanyRepository;
 import ar.com.ada.atenea.service.Services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service("companyServices")
-public class CompanyServices implements Services<CompanyDTO> {
+public class CompanyServices {
 
     @Autowired @Qualifier("businessLogicExceptionComponent")
     private BusinessLogicExceptionComponent logicExceptionComponent;
@@ -29,27 +32,6 @@ public class CompanyServices implements Services<CompanyDTO> {
     private CycleAvoidingMappingContext context;
 
 
-    @Override
-    public List<CompanyDTO> findAll() {
-        List<Company> companyEntityList = companyRepository.findAll();
-        List<CompanyDTO> companyDTOList = companyCycleMapper.toDto(companyEntityList, context);
-        return companyDTOList;
-    }
-
-    public CompanyDTO findCompanyById(Long id) {
-        Optional<Company> byIdOptional = companyRepository.findById(id);
-        CompanyDTO companyDTO = null;
-
-        if (byIdOptional.isPresent()) {
-            Company companyById = byIdOptional.get();
-            companyDTO = companyCycleMapper.toDto(companyById, context);
-        } else {
-            logicExceptionComponent.throwExceptionEntityNotFound("Company", id);
-        }
-        return companyDTO;
-    }
-
-    @Override
     public CompanyDTO save(CompanyDTO dto) {
         Company companyToSave = companyCycleMapper.toEntity(dto, context);
         Company companySaved = companyRepository.save(companyToSave);
@@ -57,24 +39,6 @@ public class CompanyServices implements Services<CompanyDTO> {
         return companyDtoSaved;
     }
 
-    public CompanyDTO updateCompany(CompanyDTO companyDTO, Long id) {
-        Optional<Company> byIdOptional = companyRepository.findById(id);
-        CompanyDTO companyDtoUpdated = null;
-
-        if (byIdOptional.isPresent()) {
-            Company companyById = byIdOptional.get();
-            companyDTO.setId(companyById.getId());
-            Company companyToUpdate = companyCycleMapper.toEntity(companyDTO, context);
-            Company companyUpdated = companyRepository.save(companyToUpdate);
-            companyDtoUpdated = companyCycleMapper.toDto(companyUpdated, context);
-        } else {
-            logicExceptionComponent.throwExceptionEntityNotFound("Company", id);
-        }
-        return companyDtoUpdated;
-    }
-
-
-    @Override
     public void delete(Long id) {
         Optional<Company> companyByIdOptional = companyRepository.findById(id);
 
@@ -85,4 +49,7 @@ public class CompanyServices implements Services<CompanyDTO> {
             logicExceptionComponent.throwExceptionEntityNotFound("Company", id);
         }
     }
+
+
+
 }

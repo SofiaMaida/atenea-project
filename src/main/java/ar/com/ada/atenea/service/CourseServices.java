@@ -13,6 +13,9 @@ import ar.com.ada.atenea.model.repository.CourseRepository;
 import ar.com.ada.atenea.service.Services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
@@ -20,7 +23,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service("courseServices")
-public class CourseServices implements Services<CourseDTO> {
+public class CourseServices {
 
     @Autowired @Qualifier("businessLogicExceptionComponent")
     private BusinessLogicExceptionComponent logicExceptionComponent;
@@ -39,28 +42,6 @@ public class CourseServices implements Services<CourseDTO> {
 
     private CourseCycleMapper courseCycleMapper = CourseCycleMapper.MAPPER;
 
-    @Override
-    public List<CourseDTO> findAll() {
-        List<Course> all = courseRepository.findAll();
-        List<CourseDTO> courseDTOList = courseCycleMapper.toDto(all, context);
-        return courseDTOList;
-    }
-
-
-    public CourseDTO findCourseById(Long id) {
-        Optional<Course> byIdOptional = courseRepository.findById(id);
-        CourseDTO courseDTO = null;
-
-        if (byIdOptional.isPresent()) {
-            Course courseById = byIdOptional.get();
-            courseDTO = courseCycleMapper.toDto(courseById, context);
-        } else {
-            logicExceptionComponent.throwExceptionEntityNotFound("Course", id);
-        }
-        return courseDTO;
-    }
-
-    @Override
     public CourseDTO save(CourseDTO dto) {
         Long companyId = dto.getCompanyId();
         Company company = companyRepository
@@ -108,25 +89,6 @@ public class CourseServices implements Services<CourseDTO> {
         return courseDTOSaved;
     }
 
-
-    public CourseDTO updateCourse(CourseDTO courseDtoToUpdate, Long id) {
-        Optional<Course> byIdOptional = courseRepository.findById(id);
-        CourseDTO courseDtoUpdated = null;
-
-        if (byIdOptional.isPresent()) {
-            Course courseById = byIdOptional.get();
-            courseDtoToUpdate.setId(courseById.getId());
-            Course courseToUpdate = courseCycleMapper.toEntity(courseDtoToUpdate, context);
-            Course courseUpdated = courseRepository.save(courseToUpdate);
-            courseDtoUpdated = courseCycleMapper.toDto(courseUpdated, context);
-        } else {
-            logicExceptionComponent.throwExceptionEntityNotFound("Course", id);
-        }
-        return courseDtoUpdated;
-    }
-
-
-    @Override
     public void delete(Long id) {
         Optional<Course> byIdOptional = courseRepository.findById(id);
 
@@ -138,4 +100,5 @@ public class CourseServices implements Services<CourseDTO> {
         }
 
     }
+
 }

@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Service("socioEconomicServices")
-public class SocioEconomicServices implements Services<SocioEconomicDTO>{
+public class SocioEconomicServices {
 
     @Autowired @Qualifier("businessLogicExceptionComponent")
     private BusinessLogicExceptionComponent logicExceptionComponent;
@@ -32,14 +32,6 @@ public class SocioEconomicServices implements Services<SocioEconomicDTO>{
 
     private SocioEconomicCycleMapper socioEconomicCycleMapper = SocioEconomicCycleMapper.MAPPER;
 
-    @Override
-    public List<SocioEconomicDTO> findAll() {
-        List<SocioEconomic> all = socioEconomicRepository.findAll();
-        List<SocioEconomicDTO> socioEconomicDTOList = socioEconomicCycleMapper.toDto(all, context);
-        return socioEconomicDTOList;
-    }
-
-    @Override
     public SocioEconomicDTO save(SocioEconomicDTO dto) {
         Long participantId = dto.getParticipantId();
         Participant participant = participantRepository
@@ -53,7 +45,4 @@ public class SocioEconomicServices implements Services<SocioEconomicDTO>{
         return socioEconomicDTOSaved;
     }
 
-    @Override
-    public void delete(Long id) {
-    }
 }
